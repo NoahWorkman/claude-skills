@@ -24,6 +24,7 @@ Then use in any Claude Code session by typing `/<skill-name>`.
 | **Retro** | `/retro` | End-of-session retrospective — analyzes the conversation for permission optimizations, security concerns, potential new skills, and workflow improvements. Outputs actionable quick-action list. |
 | **Commit & Push** | `/commit-push` | Stages all changes, generates a commit message from the actual diff, commits, and pushes to the current branch. No PR created. |
 | **Skill Publish** | `/skill-publish` | Security audits a skill file for sensitive info (UUIDs, API keys, internal paths, personal names), publishes safe skills to the public repo, and regenerates this README. Use with a filename, "audit-all", or "update-readme". |
+| **Git Sanitize** | `/git-sanitize` | Scans staged changes and full git history for sensitive info (paths, UUIDs, keys, emails, internal URLs) before pushing. Reports findings and recommends whether it's safe to push or if history needs squashing. |
 
 ## Writing Skills
 
