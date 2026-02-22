@@ -18,21 +18,50 @@ Then use in any Claude Code session by typing `/<skill-name>`.
 
 ## Skills
 
+### Session Management
+
 | Skill | Command | Description |
 |-------|---------|-------------|
-| **WTF** | `/wtf` | Quick situational briefing — what is this chat about, what should I focus on next (up to 3 items with confidence ratings), and one concrete suggested action to approve or reject. |
-| **Retro** | `/retro` | End-of-session retrospective — analyzes the conversation for permission optimizations, security concerns, potential new skills, and workflow improvements. Outputs actionable quick-action list. |
-| **Commit & Push** | `/commit-push` | Stages all changes, generates a commit message from the actual diff, commits, and pushes to the current branch. No PR created. |
-| **Skill Publish** | `/skill-publish` | Security audits a skill file for sensitive info (UUIDs, API keys, internal paths, personal names), publishes safe skills to the public repo, and regenerates this README. Use with a filename, "audit-all", or "update-readme". |
-| **Git Sanitize** | `/git-sanitize` | Scans staged changes and full git history for sensitive info (paths, UUIDs, keys, emails, internal URLs) before pushing. Reports findings and recommends whether it's safe to push or if history needs squashing. |
+| **WTF** | `/wtf` | Quick situational briefing: what is this chat about, what should I focus on next (up to 3 items with confidence ratings), and one concrete suggested action. |
+| **Retro** | `/retro` | End-of-session retrospective: permission optimization, security review, skill/agent audit, memory assessment, session hygiene, and a learning takeaway. Outputs an actionable quick-action list. |
+| **Handoff** | `/handoff` | Generate a resume prompt for picking up this conversation in a new session. Creates a copy-pasteable block with context, key files, status, and next steps. |
+
+### Code & Git
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| **Commit & Push** | `/commit-push` | Validates the build, stages changes by name (not `git add .`), generates a commit message from the diff, commits with co-author trailer, and pushes. |
+| **Git Sanitize** | `/git-sanitize` | Scans staged changes and full git history for sensitive info (paths, UUIDs, keys, emails, internal URLs). Reports findings and recommends safe-to-push or squash-needed. |
+| **Skill Publish** | `/skill-publish` | Security audits a skill file for sensitive data, publishes safe skills to a public repo, and regenerates the README. Use with a filename, `audit-all`, or `update-readme`. |
+
+### Product & Planning
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| **PRD** | `/prd` | Generate a production-grade Product Requirements Document with discovery interview, user stories, technical specs, and phased roadmap. |
+| **PRD Audit** | `/prd-audit` | Validate an existing PRD against the PRD skill schema. Checks section coverage, requirements quality, and flags vague language. |
+| **File Bug from Chat** | `/file-bug-from-chat` | Extract bugs, tech debt, and architecture issues from the current conversation. Categorizes, prioritizes, and generates structured reports. |
+
+### Frontend & Media
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| **Contrast Check** | `/contrast-check` | Audit Tailwind CSS text/background color pairings for readability on dark themes. Flags low-contrast pairs and suggests fixes. |
+| **YT Download** | `/yt-download` | Download YouTube channel/playlist videos at max quality using `bestvideo+bestaudio`, merge with ffmpeg, embed metadata, and auto-verify codecs and resolution. |
+
+### Utilities
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| **GitHub Doc** | `/github-doc` | Fetch and display a markdown file from a private GitHub repo using `gh api`. Handles branch refs and auth errors. |
 
 ## Writing Skills
 
-Skills are markdown files in `~/.claude/commands/`. The filename becomes the command (`wtf.md` → `/wtf`).
+Skills are markdown files in `~/.claude/commands/`. The filename becomes the command (`wtf.md` -> `/wtf`).
 
 Tips:
 - Use `$ARGUMENTS` to accept input (e.g., `/skill-publish wtf.md`)
-- Be specific about output format — Claude follows strict formatting rules well
+- Be specific about output format -- Claude follows strict formatting rules well
 - Include constraints ("keep under 15 lines", "do NOT list completed tasks")
 - Test the skill in a real conversation before publishing
 
@@ -50,10 +79,10 @@ If you contribute a skill, it must pass this audit.
 ## Contributing
 
 PRs welcome. Keep skills:
-- **Universal** — useful across projects, not tied to a specific codebase
-- **Concise** — under 100 lines of markdown
-- **Tested** — try it in a real session first
-- **Clean** — no sensitive info (run `/skill-publish audit-all` to verify)
+- **Universal** -- useful across projects, not tied to a specific codebase
+- **Concise** -- under 150 lines of markdown
+- **Tested** -- try it in a real session first
+- **Clean** -- no sensitive info (run `/skill-publish audit-all` to verify)
 
 ## License
 
