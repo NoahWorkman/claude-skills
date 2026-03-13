@@ -46,14 +46,14 @@ Then use in any Claude Code session by typing `/<skill-name>`.
 
 | Skill | Command | Description |
 |-------|---------|-------------|
-| **Contrast Check** | `/contrast-check` | Audit Tailwind CSS text/background color pairings for readability on dark themes. Flags low-contrast pairs and suggests fixes. |
+| **Contrast Check** | `/contrast-check` | Audit Tailwind CSS text/background color pairings for readability on dark themes. Scans `.tsx`, `.jsx`, `.vue`, `.html`, `.svelte` including dynamic classes. Flags FAIL/WARNING with suggested fixes. |
 | **YT Download** | `/yt-download` | Download YouTube channel/playlist videos at max quality using `bestvideo+bestaudio`, merge with ffmpeg, embed metadata, and auto-verify codecs and resolution. |
 
 ### Utilities
 
 | Skill | Command | Description |
 |-------|---------|-------------|
-| **GitHub Doc** | `/github-doc` | Fetch and display a markdown file from a private GitHub repo using `gh api`. Handles branch refs and auth errors. |
+| **GitHub Doc** | `/github-doc` | Fetch and display content from GitHub repos via `gh` CLI. Handles files, directories, PRs, issues, releases, and repo overviews. Smart fallbacks for 404s. |
 
 ## Writing Skills
 
