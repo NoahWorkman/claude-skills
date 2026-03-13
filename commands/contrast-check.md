@@ -1,33 +1,49 @@
-Audit Tailwind CSS text/background color pairings for readability on dark themes.
+# Contrast Check
 
-1. Identify the target files -- if the user specifies components, use those. Otherwise scan all `.tsx` files in the current project for Tailwind color classes.
+Audit text/background color pairings in Tailwind CSS for readability, especially on dark themes.
 
-2. For each file, extract all text/background color pairings by looking for:
-   - `text-zinc-*`, `text-gray-*`, `text-slate-*`, `text-neutral-*`, `text-white` classes
-   - `bg-zinc-*`, `bg-gray-*`, `bg-slate-*`, `bg-neutral-*`, `bg-black` classes
-   - Inline `style` color/backgroundColor values
-   - Classes on parent elements that set background for child text
+## Scope
 
-3. Flag problematic pairings where text and background are too close in lightness:
-   - `text-zinc-500` or darker on `bg-zinc-800` or darker = FAIL
-   - `text-zinc-400` on `bg-zinc-700` or darker = WARNING
-   - Any text class `zinc-400` or higher number on backgrounds `zinc-800`+ = FAIL
-   - Semi-transparent backgrounds (`bg-zinc-800/50`) make contrast worse -- flag these
+Scan the files the user specifies. If none specified, scan all component files in the project (`.tsx`, `.jsx`, `.vue`, `.html`, `.svelte`).
 
-4. For each issue found, output:
-   - File path and line number
-   - Current pairing (e.g., `text-zinc-500 on bg-zinc-900`)
-   - Suggested fix (e.g., `text-zinc-300`)
+## What to look for
 
-5. Present results as a table:
-   ```
-   | File:Line | Current | Issue | Suggested Fix |
-   ```
+Extract all text/background color pairings:
 
-6. After reporting, ask the user if they want the fixes applied.
+- Tailwind classes: `text-{color}-{shade}` paired with `bg-{color}-{shade}`
+- All color scales: zinc, gray, slate, neutral, stone, red, blue, green, etc.
+- Inline styles with `color` / `backgroundColor`
+- Parent backgrounds inherited by child text
+- Dynamic/conditional classes (e.g., `${darkMode ? 'text-zinc-500' : 'text-zinc-200'}`) -- evaluate both branches
+- Semi-transparent backgrounds (`bg-zinc-800/50`) -- note these reduce contrast further
 
-Guidelines:
-- Minimum readable text on dark backgrounds: `text-zinc-300` for body text, `text-zinc-200` for labels/chips
-- Buttons and interactive elements need explicit text color -- never rely on inheritance on dark themes
-- `text-white` is always safe on dark backgrounds
-- Placeholder text can be `text-zinc-400` but no darker
+## Contrast rules
+
+**FAIL** -- unreadable, must fix:
+- Text shade >= 500 on background shade >= 800 (e.g., `text-zinc-500 on bg-zinc-900`)
+- Any pairing where the shade difference is < 300 and both shades are >= 600
+
+**WARNING** -- borderline, review needed:
+- Text shade 400 on background shade >= 700
+- Semi-transparent backgrounds where underlying contrast is unknown
+
+**PASS** -- no action:
+- `text-white` or `text-{color}-100/200/300` on dark backgrounds
+- Shade difference >= 400
+
+## Minimum readable shades (dark backgrounds)
+
+- Body text: `text-{color}-300` or lighter
+- Labels and chips: `text-{color}-200` or lighter
+- Placeholder text: `text-{color}-400` (absolute minimum)
+- Interactive elements (buttons, links): always set explicit text color, never rely on inheritance
+
+## Output
+
+Present findings as a table:
+
+| File:Line | Current Pairing | Verdict | Suggested Fix |
+
+Group by file. Show FAIL items first, then WARNINGs.
+
+After the report, ask the user if they want the fixes applied.

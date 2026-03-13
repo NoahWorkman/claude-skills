@@ -1,37 +1,70 @@
 # GitHub Doc Fetcher
 
-Fetch and display a markdown document from a private GitHub repository.
+Fetch and display content from GitHub repositories using the `gh` CLI.
 
-## Instructions
+## Arguments
 
-The user will provide a GitHub URL (or you may have one from conversation context). Extract the owner, repo, file path, and branch from the URL.
+`$ARGUMENTS` can be any of:
+- A GitHub URL (file, directory, PR, issue, release)
+- An `owner/repo` shorthand plus a path (e.g., `anthropics/claude-code README.md`)
+- Just an `owner/repo` to view the repo overview
 
-### URL Patterns
+## How to handle each URL type
 
-```
-https://github.com/{owner}/{repo}/blob/{branch}/{path}
-```
-
-### Fetch Command
-
+### File
+`https://github.com/{owner}/{repo}/blob/{branch}/{path}`
 ```bash
 gh api "repos/{owner}/{repo}/contents/{path}?ref={branch}" --jq '.content' | base64 -d
 ```
 
-### Steps
+### Directory
+`https://github.com/{owner}/{repo}/tree/{branch}/{path}`
+```bash
+gh api "repos/{owner}/{repo}/contents/{path}?ref={branch}" --jq '.[] | "\(.type)\t\(.name)"'
+```
+Show the listing, then ask the user which file to fetch.
 
-1. Parse the GitHub URL to extract owner, repo, branch, and file path
-2. Run the `gh api` command above with the extracted values
-3. Display the full document content to the user
-4. If the file is not found, try without the `?ref=` parameter (defaults to main branch)
+### Pull request
+`https://github.com/{owner}/{repo}/pull/{number}`
+```bash
+gh pr view {number} --repo {owner}/{repo}
+```
 
-### Error Handling
+### Issue
+`https://github.com/{owner}/{repo}/issues/{number}`
+```bash
+gh issue view {number} --repo {owner}/{repo}
+```
 
-- **404**: Check if the repo name and path are correct. Try listing the directory contents to find the right file.
-- **Auth error**: Tell the user to run `gh auth login` to authenticate.
+### Release
+`https://github.com/{owner}/{repo}/releases/tag/{tag}`
+```bash
+gh release view {tag} --repo {owner}/{repo}
+```
 
-### Arguments
+### Repo root
+`https://github.com/{owner}/{repo}`
+```bash
+gh repo view {owner}/{repo}
+```
 
-Pass the GitHub URL as the argument: `/github-doc https://github.com/org/repo/blob/branch/path/to/file.md`
+## Fallback logic
 
-If no URL is provided, ask the user for one.
+1. If a file fetch returns 404, try without the `?ref=` parameter (defaults to the repo's default branch).
+2. If still 404, list the parent directory to help find the right path.
+3. If the repo is not found, check access: `gh api repos/{owner}/{repo} --jq '.private'`
+
+## Display rules
+
+- Markdown files: display content directly.
+- Code files: display with the filename as a heading.
+- Large files (>500 lines): show the first 100 lines and ask if the user wants the rest.
+- Binary files: report the file type and size, don't try to display.
+
+## Error handling
+
+- **404**: Show what was tried. List nearby files if possible.
+- **Auth error**: Tell the user to run `gh auth login`.
+- **Rate limit**: Tell the user to check `gh auth status`.
+
+If no argument is provided, ask the user for a GitHub URL or repo.
