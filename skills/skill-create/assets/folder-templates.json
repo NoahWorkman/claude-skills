@@ -1,0 +1,38 @@
+{
+  "library/api reference": {
+    "subdirs": ["references", "assets"],
+    "rationale": "API docs in references/, code snippets and examples in assets/"
+  },
+  "product verification": {
+    "subdirs": ["scripts", "references"],
+    "rationale": "Test/validation scripts in scripts/, assertion patterns and specs in references/"
+  },
+  "data fetching": {
+    "subdirs": ["scripts", "references", "data"],
+    "rationale": "Query scripts in scripts/, schema docs in references/, cached results in data/"
+  },
+  "business process": {
+    "subdirs": ["data", "references"],
+    "rationale": "Run logs and state in data/, workflow documentation in references/"
+  },
+  "code scaffolding": {
+    "subdirs": ["assets", "references"],
+    "rationale": "Templates and boilerplate in assets/, pattern documentation in references/"
+  },
+  "code quality": {
+    "subdirs": ["scripts", "references"],
+    "rationale": "Linting/analysis scripts in scripts/, style guides in references/"
+  },
+  "ci/cd & deployment": {
+    "subdirs": ["scripts", "data"],
+    "rationale": "Deploy/publish scripts in scripts/, rollback logs in data/"
+  },
+  "runbooks": {
+    "subdirs": ["references", "data"],
+    "rationale": "Investigation playbooks in references/, incident logs in data/"
+  },
+  "infrastructure ops": {
+    "subdirs": ["scripts", "data", "references"],
+    "rationale": "Cleanup/management scripts in scripts/, approval workflows in data/, config docs in references/"
+  }
+}

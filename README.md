@@ -7,14 +7,19 @@ Skills are markdown prompt files that give Claude Code repeatable workflows you 
 ## Install
 
 ```bash
-# Single skill
+# Single flat skill (commands/)
 cp commands/wtf.md ~/.claude/commands/
 
-# All skills
+# All flat skills
 cp commands/*.md ~/.claude/commands/
+
+# Folder skill (skills/) -- preserves subdirectory structure
+cp -r skills/skill-create ~/.claude/skills/
 ```
 
 Then use in any Claude Code session by typing `/<skill-name>`.
+
+**Flat vs folder skills:** Flat skills are single `.md` files in `commands/`. Folder skills live in `skills/` with subdirectories for scripts, references, assets, and data -- they support progressive disclosure and deterministic tooling.
 
 ## Skills
 
@@ -48,6 +53,12 @@ Then use in any Claude Code session by typing `/<skill-name>`.
 |-------|---------|-------------|
 | **Contrast Check** | `/contrast-check` | Audit Tailwind CSS text/background color pairings for readability on dark themes. Scans `.tsx`, `.jsx`, `.vue`, `.html`, `.svelte` including dynamic classes. Flags FAIL/WARNING with suggested fixes. |
 | **YT Download** | `/yt-download` | Download YouTube channel/playlist videos at max quality using `bestvideo+bestaudio`, merge with ffmpeg, embed metadata, and auto-verify codecs and resolution. |
+
+### Skill Development
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| **Skill Create** | `/skill-create` | Create new skills with best-practice structure or audit existing ones. Scaffolds folder skills with frontmatter, gotchas, progressive disclosure. Includes a deterministic 11-point structural audit (A/B/C/D grading) plus LLM content review. |
 
 ### Utilities
 
