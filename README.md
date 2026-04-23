@@ -59,6 +59,7 @@ Then use in any Claude Code session by typing `/<skill-name>`.
 | Skill | Command | Description |
 |-------|---------|-------------|
 | **Skill Create** | `/skill-create` | Create new skills with best-practice structure or audit existing ones. Scaffolds folder skills with frontmatter, gotchas, progressive disclosure. Includes a deterministic 11-point structural audit (A/B/C/D grading) plus LLM content review. |
+| **Boris** | `/boris` | Claude Code workflow tips compiled from Boris Cherny (creator of Claude Code) and the Claude Code team. 53 tips across 41 topics: worktrees, plan mode, subagents, hooks, MCP, permissions, `/effort max`, output styles, and more. |
 
 ### Utilities
 

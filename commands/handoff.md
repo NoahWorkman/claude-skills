@@ -62,6 +62,19 @@ RESUME PROMPT -- Copy everything between the dashes into a new Claude Code sessi
 ---
 ```
 
+### 7. Save Location
+
+Save the handoff document to a location where you can find it later (e.g., `~/handoffs/YYYY-MM-DD-[topic-slug].md` or a repo dedicated to handoffs). Use a short descriptive slug.
+
 ## Output
 
-Display the resume prompt directly in the terminal so the user can copy it immediately.
+Display the resume prompt directly in the terminal so the user can copy it immediately, then confirm where the full handoff doc was saved.
+
+### Piping instructions
+
+When suggesting how to pipe the prompt into a new Claude session, ALWAYS use the two-step file-then-pipe approach. NEVER use inline `cat <<'EOF' | claude` -- it breaks on long prompts due to shell arg length limits.
+
+```bash
+# Write the prompt to a file first, then pipe:
+cat /tmp/resume-prompt.md | claude
+```

@@ -17,6 +17,7 @@ Common broad patterns to watch for:
 - `Bash(git:*)` covers all git commands
 - `Bash(pnpm:*)` covers all pnpm commands
 - `Bash(npm:*)` covers all npm commands
+- `Bash(ls:*)` covers all ls commands
 
 ---
 
@@ -130,12 +131,14 @@ If nothing is warranted, say "No new skills or agents needed from this session."
 - User workflow preferences expressed during the session
 - Solutions to problems that could recur
 - Corrections to existing memory that's now outdated
+- Important file paths, commands, or configurations
 
 **Do NOT recommend saving:**
 - In-progress work or temporary task state
 - Information already in a CLAUDE.md file
 - Things learned from reading one file that might be incomplete
 - Session-specific context (current branch, current bug, etc.)
+- Speculative conclusions
 
 **Memory locations:**
 - `~/.claude/projects/<project>/memory/MEMORY.md` -- concise index (first 200 lines loaded per session)
@@ -158,7 +161,7 @@ If nothing is warranted, say "No new skills or agents needed from this session."
 
 ---
 
-### 5. Session Hygiene
+### 5. Session Hygiene & Best Practices
 
 Review the session against Claude Code best practices. Check for:
 

@@ -54,14 +54,31 @@ Do NOT file anything without the user confirming which issues to report.
 
 ### Phase 3: Investigate (Quick)
 
-For each issue the user selects, do a fast codebase search:
+For each issue the user selects, do a fast codebase search if relevant:
 - Look for related files, recent git commits, and similar patterns
 - Check for existing issues or TODO comments about the same problem
-- This should be fast (30 seconds max per issue). Don't block filing on investigation.
+- If the repo lives on GitHub, check for duplicates: `gh issue list --repo <owner>/<repo> --search "<keywords>" --state all`
 
-### Phase 4: Write Reports
+This should be fast (30 seconds max per issue). Don't block filing on investigation.
 
-For each selected issue, generate a report using the template below and save it to the project's issues or docs directory. Ask the user where to save if unclear.
+### Phase 4: File the Reports
+
+For each selected issue, generate a report using the template below. Two options:
+
+**Option A — File on GitHub (preferred when the repo is on GitHub):**
+
+```bash
+gh issue create --repo <owner>/<repo> --title "<Type>: <Title>" --body "$(cat <<'EOF'
+<rendered template below>
+EOF
+)"
+```
+
+Return the issue URL after filing.
+
+**Option B — Save as a local report:**
+
+If the repo isn't on GitHub or the user prefers a file, save the rendered template to the project's issues or docs directory. Ask the user where to save if unclear.
 
 ## Report Template
 
