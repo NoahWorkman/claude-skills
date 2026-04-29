@@ -65,7 +65,7 @@ Beyond the terminal, run additional sessions on claude.ai/code. Use:
 
 ## 2. Model Selection
 
-### Use Opus 4.5 with Thinking for Everything
+### Use Opus 4.7 with Thinking for Everything
 Boris's reasoning: "It's the best coding model I've ever used, and even though it's bigger & slower than Sonnet, since you have to steer it less and it's better at tool use, it is almost always faster than using a smaller model in the end."
 
 **The math:** Less steering + better tool use = faster overall results, even with a larger model.
@@ -158,7 +158,7 @@ Think of subagents as automations for the most common PR workflows:
 ### Leveraging Subagents
 - Append "use subagents" to any request where you want Claude to throw more compute at the problem
 - Offload individual tasks to subagents to keep your main agent's context window clean and focused
-- Route permission requests to Opus 4.5 via a hook - let it scan for attacks and auto-approve the safe ones
+- Route permission requests to Opus 4.7 via a hook - let it scan for attacks and auto-approve the safe ones
 
 ---
 
