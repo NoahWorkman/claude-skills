@@ -30,6 +30,7 @@ Then use in any Claude Code session by typing `/<skill-name>`.
 | **WTF** | `/wtf` | Quick situational briefing: what is this chat about, what should I focus on next (up to 3 items with confidence ratings), and one concrete suggested action. |
 | **Retro** | `/retro` | End-of-session retrospective: permission optimization, security review, skill/agent audit, memory assessment, session hygiene, and a learning takeaway. Outputs an actionable quick-action list. |
 | **Handoff** | `/handoff` | Generate a resume prompt for picking up this conversation in a new session. Creates a copy-pasteable block with context, key files, status, and next steps. |
+| **Spawn Build** | `/spawn-build` | Spawn a parallel Claude Code session in a new macOS Terminal window. Pipes a self-contained build brief plus a wrapper instruction into a fresh agent that runs alongside your main session. Defaults to `BUILD_PROMPT.md` in cwd; accepts any path as an argument. |
 
 ### Code & Git
 
